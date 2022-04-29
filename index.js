@@ -10,7 +10,8 @@ const server = express();
 //tell our server how to process different payloads
 server.use(express.json())
 
-server.use(cors())
+//tell my server 
+server.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
