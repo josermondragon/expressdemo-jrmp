@@ -1,6 +1,7 @@
 // requieres express
 const express = require("express");
 const cors = require("cors");
+const axios = require("axios");
 
 const res = require("express/lib/response");
 
@@ -41,7 +42,12 @@ const students = {
         interests: ["camaro", "frontier", "wrangler", "bananas"],
         city: "Detroit"
 
-    }
+    },
+    mannie: {
+        name: "Mannie",
+        interests: ["soccer", "bananas"],
+        city: "Georgia",
+      }
 }
 //Get /students
 server.get("/students", (req,res) => {const { name, interest, city } = req.query;
@@ -68,10 +74,6 @@ filteredStudents = filteredStudents.filter(
 return res.send(filteredStudents);
 
 });
-
-
-
-
 
 
 server.get("/students/name/:name", (req,res) =>{
@@ -126,7 +128,7 @@ server.get("/students/name/:name/city/:city", (req,res) => {
 // CREATE => POST
 // POST/destinations
 // what is a destination, what makes a destination record?
-server.post("/destinations", (req,res) => {
+server.post("/destinations", async  (req,res) => {
     //ONLY grab what I need
     const {destination,location,photo,description} = req.body
     // const destination = req.body.destination
@@ -137,11 +139,19 @@ server.post("/destinations", (req,res) => {
     }
    
 
+const UnsplashApiUrl = `https://api.unsplash.com/search/photos?query=${destination} ${location}&client_id=asmDy-TlpZh-xiDnk3U0ypQ2KCcMopC5DFQ3dPnwTAk`;
+
+const {data} =await axios.get(UnsplashApiUrl);
+
+const photos = data.results
+const randIdx = Math.floor(Math.random()*photos.length)
+
+
     //CREATE the new object to put in my database
     const newDest = {
         destination,
         location,
-        photo: photo && photo.lengt !==0 ? photo : "no photo",
+        photo: data.results[randIdx].urls.small,
         description: description && description.lengt !==0 ? description : ""
     }
 
