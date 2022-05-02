@@ -48,7 +48,12 @@ const students = {
         name: "Mannie",
         interests: ["soccer", "bananas"],
         city: "Georgia",
-      }
+      },
+    jose: {
+        name: "Jose",
+        interests: "Basketball",
+        city: "Miami"
+    }
 }
 //Get /students
 server.get("/students", (req,res) => {const { name, interest, city } = req.query;
