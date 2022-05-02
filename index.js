@@ -1,3 +1,4 @@
+// require("dotenv").config();
 // requieres express
 const express = require("express");
 const cors = require("cors");
@@ -22,7 +23,7 @@ server.listen(PORT, () => {
     console.log("Server Listening...");
 });
 
-
+//second part about destinations (no relate to students demo)
 const destinations = []
 //missing shit here
 
@@ -166,3 +167,5 @@ const randIdx = Math.floor(Math.random()*photos.length)
 server.get("/destinations", (req,res) => {
     res.send(destinations);
 });
+
+//lets change the new on heroku
